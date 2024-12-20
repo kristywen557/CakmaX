@@ -1,0 +1,7 @@
+<%let user = await db.table('accounts').get(item.user) || {}%>
+<div class="item">
+    <img src="https://cdn.discordapp.com/avatars/<%=user.id%>/<%=user.avatar%>.webp?size=64" alt="">
+    <h3 onclick="window.open('/profile/<%= item.user.id%>','_self')"><%= user.username%></h3>
+    <p><%= item.content%></p>
+    <a href="<%=item.context%>">Go Post</a>
+</div>

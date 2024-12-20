@@ -1,0 +1,8 @@
+<form action="/api/reply/<%=post.id%>" method="post">
+    <div class="posts">
+        <%- await include('../components/post',{post})%>
+        <div class="vline"></div>
+        <%- await include('../components/post',{post:{author:account.id,editable:true}})%>
+        <input type="submit" value="Send Post" class="send">
+    </div>
+</form>

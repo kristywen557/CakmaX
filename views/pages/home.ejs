@@ -1,0 +1,13 @@
+<div class="posts">
+    <%
+    let accountTable = await db.table("accounts").all();
+    let postTable = (await db.table("posts").all()).reverse();
+    for (let i = 0; i < postTable.length; i++) {
+        const post = postTable[i];
+        if(post.value.type != 0) continue;
+        %>
+        <%- await include('../components/post',{post:post.value})%>
+    <%}%>
+    <% if(postTable.length == 0){%>Not showing any post!<%}%>
+    <%# await include('../components/post',{post:{user:account}})%>
+</div>

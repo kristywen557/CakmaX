@@ -1,0 +1,29 @@
+<%let user = await db.table('accounts').get(post.author) || {}%>
+<div class="post" id="<%= post.id%>">
+    <div class="header" onclick="window.open('/profile/<%= user.id%>','_self')">
+        <img src="https://cdn.discordapp.com/avatars/<%=user.id%>/<%=user.avatar%>.webp?size=64" alt="">
+        <h3><%= user.username || "Author has not defined!" %></h3>
+    </div>
+    <div class="body">
+        <%if(post.editable) {%>
+            <span role="textbox" placeholder='Click to edit this text' contentEditable=true id="span_content" onkeyup="document.querySelector('#content').value = document.querySelector('#span_content').innerHTML"></span>
+            <input type="text" name="content" id="content" hidden>
+        <%} else {%>
+            <% await db.table('posts').add(post.id+".view",1) %>
+            <p><%- post.content || "Content has not defined!" %></p>
+        <%}%>
+    </div>
+    <%if(!post.editable) {%>
+        <div class="footer">
+            <a><%= post.view || 0 %> View</a>
+            <a href="/reply/<%= post.id %>">Reply</a>
+            <a href="/replies/<%= post.id %>"><%= post.replies.length || 0%> Replies</a>
+            <%if (post.context != null && post.gopost) {%>
+                <a href="/replies/<%= post.context %>">Go Post</a>
+            <%}%>
+            <%if (account.id == post.author) {%>
+                <a class="delete" href="/api/delete/<%= post.id %>">Delete</a>
+            <%}%>
+        </div>
+    <%}%>
+</div>

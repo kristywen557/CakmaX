@@ -1,0 +1,18 @@
+<div class="inbox">
+    <%
+    let itemList = Object.keys(account?.inbox).reverse();
+    for (let i = 0; i < itemList.length; i++) {
+        const itemKey = itemList[i];
+        const item = account?.inbox[itemKey] || {};
+        if(item?.past && past) {
+            %>
+            <%- await include('../components/inbox-item',{item})%>
+            <%continue;
+        }
+        if(item?.past || past) continue;
+        await db.table('accounts').set(account?.id+".inbox."+itemKey+".past",true)
+        %>
+        <%- await include('../components/inbox-item',{item})%>
+    <%}%>
+    <% if(itemList.length == 0){%>Not showing anything!<%}%>
+</div>

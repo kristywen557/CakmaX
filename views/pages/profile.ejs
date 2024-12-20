@@ -1,0 +1,25 @@
+<div class="posts">
+    <h2 style="margin: 0; margin-bottom: 1rem;"><%= selectedAccount.username[0].toUpperCase() + selectedAccount.username.slice(1);%>'s Profile</h2>
+    <%
+    let postTable = await db.table("posts").all();
+    let publicConter = 0;
+    let replyConter = 0;
+    const accountPosts = postTable.filter((post) => post.value.author == selectedAccount.id);
+    for (let i = 0; i < accountPosts.length; i++) {
+        const post = accountPosts[i].value;
+        if(showReplies && post.type == 1) {
+            post.gopost = true;
+            replyConter++;
+            %>
+            <%- await include('../components/post',{post:post})%>
+            <%continue;
+        }
+        if(post.type != 0 || showReplies) continue;
+        publicConter++;
+        %>
+        <%- await include('../components/post',{post:post})%>
+    <%}%>
+    <% if(replyConter == 0 && showReplies){%>Not showing any reply!<%}%>
+    <% if(publicConter == 0 && !showReplies){%>Not showing any post!<%}%>
+    <%# await include('../components/post',{post:{user:account}})%>
+</div>

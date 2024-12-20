@@ -1,0 +1,18 @@
+<div class="posts">
+    <%post.gopost = true%>
+    <%- await include('../components/post',{post})%>
+    <div class="vline"></div>
+    <%
+    let accountTable = await db.table("accounts").all();
+    let postTable = await db.table("posts");
+    let postReplies = post?.replies;
+    for (let i = 0; i < postReplies.length; i++) {
+        const replyId = postReplies[i];
+        let replyPost = await postTable.get(replyId);
+        if(replyPost.type != 1) continue;
+        %>
+        <%- await include('../components/post',{post:replyPost})%>
+    <%}%>
+    <% if(postReplies.length == 0){%>Not showing any reply!<%}%>
+    <%# await include('../components/post',{post:{user:account}})%>
+</div>

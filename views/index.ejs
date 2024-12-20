@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courgette&family=Grey+Qo&family=Playwrite+DK+Loopet:wght@100..400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <title>Çakma X</title>
+</head>
+<body>
+    <div class="app">
+        <%- await include('components/sidebar')%>
+        <div class="main">
+            <%- await include('components/navbar')%>
+            <%- await include('pages/'+page)%>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('toastr')) {
+                const toastrMessage = params.get('toastr');
+                const toastrDiv = document.createElement('div');
+                toastrDiv.className = 'toastr';
+                toastrDiv.textContent = toastrMessage;
+                document.body.appendChild(toastrDiv);
+                const newUrl = window.location.pathname;
+                window.history.replaceState({}, '', newUrl);
+                setTimeout(() => {
+                    toastrDiv.style.opacity = "0%";
+                }, 5000);
+            }
+        }); 
+    </script>
+</body>
+</html>

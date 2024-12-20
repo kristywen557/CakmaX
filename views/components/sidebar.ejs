@@ -1,0 +1,31 @@
+<%
+var sideBar = [
+    {
+        title: "Home",
+        page: "home",
+        url: "/"
+    },
+    {
+        title: `Inbox (${Object.values(account?.inbox || {}).filter(item => item.past === false).length})`,
+        page: "inbox",
+        url: "/inbox"
+    },
+
+]
+
+%>
+<div class="side">
+    <h2>Çakma X</h2>
+    <ul>
+        <% sideBar.forEach(sideItem => { %>
+            <li><a <% if(sideItem.page == page){%> class="active" <%}%> href="<%=sideItem.url%>"><%=sideItem.title%></a></li>
+        <% }) %>
+        <%
+        if(Object.keys(account).length != 0) {%>
+            <li><a href="/logout">Logout</a></li>
+            <li class="bottom"><a href="/post">New Post</a></li>
+        <%}else{%>
+            <li class="bottom"><a href="/login">Login</a></li>
+        <%}%>
+    </ul>
+</div>
