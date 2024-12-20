@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "better-sqlite3": "^11.1.2",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "discord-auth.js": "^1.0.0",
+    "discord-oauth2": "^2.12.1",
+    "discord-oauth2-api": "^1.1.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.1",
+    "i": "^0.3.7",
+    "multer": "^1.4.5-lts.1",
+    "npm": "^10.8.2",
+    "passport": "^0.7.0",
+    "passport-discord": "^0.1.4",
+    "quick.db": "^9.1.7"
+  }
+}
