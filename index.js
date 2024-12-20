@@ -163,9 +163,5 @@ api.post('/reply/:post',checkAccount(), validateBody(['content']), validatePost(
   if(req?.account.id != req?.post.author) await accountTable.set(req?.post?.author+".inbox."+inboxItemId,{past:false,user:req.account?.id,content:"A user replied to your post.",context:"/replies/"+req?.post?.id+"#"+replyPostId})
   res.redirect('/replies/'+req.post?.id+"?toastr=Your reply has been sent successfully.")
 })
-app.get('/ext/products', async (req, res) => {
-    const ip = req.connection.remoteAddress
-    res.send(ip)
-})
 //RUN
 app.listen(5454);
